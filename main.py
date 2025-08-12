@@ -25,7 +25,7 @@ st.set_page_config(
 )
       
 class GenerationStatistics:
-    def __init__(self, input_time=0,output_time=0,input_tokens=0,output_tokens=0,total_time=0,model_name="llama3-8b-8192"):
+    def __init__(self, input_time=0,output_time=0,input_tokens=0,output_tokens=0,total_time=0,model_name="meta-llama/llama-4-scout-17b-16e-instruct"):
         self.input_time = input_time
         self.output_time = output_time
         self.input_tokens = input_tokens
@@ -179,7 +179,7 @@ def transcribe_audio(audio_file):
     results = transcription.text
     return results
 
-def generate_notes_structure(transcript: str, model: str = "llama3-70b-8192"):
+def generate_notes_structure(transcript: str, model: str = "meta-llama/llama-4-maverick-17b-128e-instruct"):
     """
     Returns notes structure content as well as total tokens and total time for generation.
     """
@@ -218,17 +218,17 @@ def generate_notes_structure(transcript: str, model: str = "llama3-70b-8192"):
 
     return statistics_to_return, completion.choices[0].message.content
 
-def generate_section(transcript: str, existing_notes: str, section: str, model: str = "llama3-8b-8192"):
+def generate_section(transcript: str, existing_notes: str, section: str, model: str = "meta-llama/llama-4-scout-17b-16e-instruct"):
     stream = st.session_state.groq.chat.completions.create(
         model=model,
         messages=[
             {
                 "role": "system",
-                "content": "You are an expert writer. Generate a comprehensive note for the section provided based factually on the transcript provided. Do *not* repeat any content from previous sections."
+                "content": "You are an expert writer. Generate comprehensive note content for the section provided based factually on the transcript provided. Do *not* repeat any content from previous sections. Do *not* include the section title/header in your response - only generate the content."
             },
             {
                 "role": "user",
-                "content": f"### Transcript\n\n{transcript}\n\n### Existing Notes\n\n{existing_notes}\n\n### Instructions\n\nGenerate comprehensive notes for this section only based on the transcript: \n\n{section}"
+                "content": f"### Transcript\n\n{transcript}\n\n### Existing Notes\n\n{existing_notes}\n\n### Instructions\n\nGenerate comprehensive note content (without the section title) for this section only based on the transcript: \n\n{section}"
             }
         ],
         temperature=0.3,
@@ -289,7 +289,7 @@ try:
             }
         }
 
-        st.write(f"# 🧙‍♂️ ScribeWizard \n## Generate notes from audio in seconds using Groq, Whisper, and Llama3")
+        st.write(f"# 🧙‍♂️ ScribeWizard \n## Generate notes from audio in seconds using Groq, Whisper, and Llama")
         st.markdown(f"[Github Repository](https://github.com/bklieger/scribewizard)\n\nAs with all generative AI, content may include inaccurate or placeholder information. ScribeWizard is in beta and all feedback is welcome!")
 
         st.write(f"---")
@@ -318,11 +318,11 @@ try:
         st.write(f"---")
 
         st.write("# Customization Settings\n🧪 These settings are experimental.\n")
-        st.write(f"By default, ScribeWizard uses Llama3-70b for generating the notes outline and Llama3-8b for the content. This balances quality with speed and rate limit usage. You can customize these selections below.")
-        outline_model_options = ["llama3-70b-8192", "llama3-8b-8192", "mixtral-8x7b-32768", "gemma-7b-it"]
+        st.write(f"By default, ScribeWizard uses Llama 4 Maverick for generating the notes outline and Llama 4 Scout for the content. This balances quality with speed and rate limit usage. You can customize these selections below.")
+        outline_model_options = ["meta-llama/llama-4-maverick-17b-128e-instruct", "meta-llama/llama-4-scout-17b-16e-instruct", "moonshotai/kimi-k2-instruct", "deepseek-r1-distill-llama-70b"]
         outline_selected_model = st.selectbox("Outline generation:", outline_model_options)
-        content_model_options = ["llama3-8b-8192", "llama3-70b-8192", "mixtral-8x7b-32768", "gemma-7b-it", "gemma2-9b-it"]
-        content_selected_model = st.selectbox("Content generation:", content_model_options)
+        content_model_options = ["meta-llama/llama-4-maverick-17b-128e-instruct", "meta-llama/llama-4-scout-17b-16e-instruct", "moonshotai/kimi-k2-instruct", "deepseek-r1-distill-llama-70b"]
+        content_selected_model = st.selectbox("Content generation:", content_model_options, index=1)
 
         
         # Add note about rate limits

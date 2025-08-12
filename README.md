@@ -3,7 +3,7 @@
  <img src="https://i.imgur.com/scoiUgD.png" alt="Generate Organizes Notes with ScribeWizard" width="150">
  <br>
  <br>
- ScribeWizard: Generate organized notes from audio<br>using Groq, Whisper, and Llama3
+ ScribeWizard: Generate organized notes from audio<br>using Groq, Whisper, and Llama
  <br>
 </h2>
 
@@ -29,14 +29,14 @@
 
 ## Overview
 
-ScribeWizard is a streamlit app that scaffolds the creation of structured lecture notes by iteratively structuring and generating notes from transcribed audio lectures using Groq's Whisper API. The app mixes Llama3-8b and Llama3-70b, utilizing the larger model for generating the notes structure and the faster of the two for creating the content.
+ScribeWizard is a streamlit app that scaffolds the creation of structured lecture notes by iteratively structuring and generating notes from transcribed audio lectures using Groq's Whisper API. The app mixes Llama 4 Scout and Llama 4 Maverick, utilizing the larger model for generating the notes structure and the faster of the two for creating the content.
 
 
 ### Features
 
-- 🎧 Generate structured notes using transcribed audio by Whisper-large and text by Llama3
+- 🎧 Generate structured notes using transcribed audio by Whisper-large and text by Llama
 - ⚡ Lightning fast speed transcribing audio and generating text using Groq
-- 📖 Scaffolded prompting strategically switches between Llama3-70b and Llama3-8b to balance speed and quality
+- 📖 Scaffolded prompting strategically switches between Llama 4 Maverick and Llama 4 Scout to balance speed and quality
 - 🖊️ Markdown styling creates aesthetic notes on the streamlit app that can include tables and code 
 - 📂 Allows user to download a text or PDF file with the entire notes contents
 
@@ -105,7 +105,7 @@ python3 -m streamlit run main.py
 ### Technologies
 
 - Streamlit
-- Llama3 on Groq Cloud
+- Llama on Groq Cloud
 - Whisper-large on Groq Cloud
 
 ### Limitations
@@ -124,11 +124,11 @@ Improvements through PRs are welcome!
 
 This release is an initial release of the application codebase. It includes the following features:
 
-🎧 Generate structured notes using transcribed audio by Whisper-large and text by Llama3
+🎧 Generate structured notes using transcribed audio by Whisper-large and text by Llama
 
 ⚡ Lightning fast speed transcribing audio and generating text using Groq
 
-📖 Scaffolded prompting strategically switches between Llama3-70b and Llama3-8b to balance speed and quality
+📖 Scaffolded prompting strategically switches between Llama 4 Maverick and Llama 4 Scout to balance speed and quality
 
 🖊️ Markdown styling creates aesthetic notes on the streamlit app that can include tables and code
 
